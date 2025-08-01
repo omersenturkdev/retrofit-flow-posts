@@ -4,17 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        //Navigation Component
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
-        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.8.3"
     }
 }
 
 plugins {
-    alias(libs.plugins.android.application) apply false
+    id 'com.android.application' version '8.5.2' apply false
     alias(libs.plugins.kotlin.android) apply false
-
-    //Dagger - Hilt
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id "com.google.devtools.ksp" version "2.0.20-1.0.24" apply false
+    id "com.google.dagger.hilt.android" version "2.51" apply false
 }

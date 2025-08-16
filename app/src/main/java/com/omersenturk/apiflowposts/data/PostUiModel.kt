@@ -1,8 +1,5 @@
-package com.omersenturk.apiflowposts.data.models
+package com.omersenturk.apiflowposts.data
 
-import androidx.annotation.Keep
-
-@Keep
 data class PostUiModel(
     val title: String,
     val body: String,

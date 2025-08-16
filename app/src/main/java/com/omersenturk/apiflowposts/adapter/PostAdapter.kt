@@ -7,36 +7,32 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.omersenturk.apiflowposts.R
-import com.omersenturk.apiflowposts.data.models.PostUiModel
-import com.omersenturk.apiflowposts.databinding.ItemPostsBinding
+import com.omersenturk.apiflowposts.data.PostUiModel
 
-class PostAdapter(private var posts: List<PostUiModel>) :
+class PostAdapter(private val posts: List<PostUiModel>) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
-    inner class PostViewHolder(private val binding : ItemPostsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(post : PostUiModel){
-            binding.textViewPostTitle.text = post.title
-            binding.textViewPostBody.text = post.body
-            binding.imageViewPosts.load(post.image){
-                transformations(CircleCropTransformation())
-            }
-        }
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvTitle = itemView.findViewById<TextView>(R.id.tvPostTitle)
+        val tvBody = itemView.findViewById<TextView>(R.id.tvPostBody)
+        val image = itemView.findViewById<ImageView>(R.id.ivPosts)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val binding = ItemPostsBinding.inflate(LayoutInflater.from(parent.context),parent,false,)
-        return PostViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_posts, parent, false)
+        return PostViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(posts[position])
+        val post = posts[position]
+        holder.tvTitle.text = post.title
+        holder.tvBody.text = post.body
+        holder.image.load(post.image) {
+            transformations(CircleCropTransformation())
+        }
     }
 
     override fun getItemCount(): Int = posts.size
 
-    fun updatePosts(newPosts: List<PostUiModel>) {
-        posts = newPosts
-        notifyDataSetChanged()
-    }
 
 }

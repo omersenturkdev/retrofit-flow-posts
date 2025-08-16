@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.navigation.safeargs.kotlin)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt.android)
+    id "androidx.navigation.safeargs.kotlin"
+    id "com.google.devtools.ksp"
+    id "com.google.dagger.hilt.android"
 }
 
 android {
@@ -21,13 +21,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
-        }
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
         }
     }
 
@@ -42,7 +37,6 @@ android {
 
     buildFeatures {
         viewBinding true
-        buildConfig true
     }
 }
 
@@ -57,19 +51,17 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
 
     // Navigation Components
-    implementation libs.androidx.navigation.fragment.ktx
-    implementation libs.androidx.navigation.ui.ktx
+    implementation "androidx.navigation:navigation-fragment-ktx:2.8.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.8.3"
 
     // Hilt-Dagger
-    implementation libs.hilt.android
-    ksp libs.hilt.compiler
+    implementation "com.google.dagger:hilt-android:2.51"
+    ksp "com.google.dagger:hilt-compiler:2.51"
 
-    // Retrofit ve OkHttp
     implementation libs.retrofit
     implementation libs.retrofit.converter.gson
     implementation libs.okhttp
     implementation libs.okhttp.logging
 
-    // Coil
-    implementation libs.coil
+    implementation "io.coil-kt:coil:2.7.0"
 }

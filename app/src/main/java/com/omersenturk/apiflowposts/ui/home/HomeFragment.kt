@@ -1,27 +1,71 @@
 package com.omersenturk.apiflowposts.ui.home
 
+import PostAdapter
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.omersenturk.apiflowposts.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
+import com.omersenturk.apiflowposts.ui.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
+    private val viewModel: HomeViewModel by viewModels()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var adapter: PostAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        setupRecyclerView()
+        observePosts()
+        setupAddButton()
+
+        viewModel.fetchPosts()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = PostAdapter(emptyList())
+        binding.recycleViewPosts.adapter = adapter
+    }
+
+    private fun observePosts() {
+        lifecycleScope.launch {
+            viewModel.posts.collectLatest { result ->
+                result?.onSuccess { posts ->
+                    adapter.updatePosts(posts)
+                }?.onFailure { error ->
+                    Toast.makeText(requireContext(), "Hata: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    private fun setupAddButton() {
+        binding.buttonAdd.setOnClickListener {
+            Toast.makeText(requireContext(), "Add button clicked!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

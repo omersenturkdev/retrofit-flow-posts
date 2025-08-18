@@ -6,6 +6,7 @@ import com.omersenturk.apiflowposts.data.PostRepository
 import com.omersenturk.apiflowposts.data.models.PostResponse
 import com.omersenturk.apiflowposts.data.models.PostUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,6 +20,8 @@ class HomeViewModel @Inject constructor(
     private val _posts = MutableStateFlow<Result<List<PostUiModel>>?>(null)
     val posts: StateFlow<Result<List<PostUiModel>>?> = _posts
 
+    private var job: Job? = null
+
     fun fetchPosts() {
         viewModelScope.launch {
             val result = repository.getPost()
@@ -27,7 +30,8 @@ class HomeViewModel @Inject constructor(
     }
 
     fun searchPosts(query: String) {
-        viewModelScope.launch {
+        job?.cancel()
+        job = viewModelScope.launch {
             val result = repository.searchPosts(query)
             _posts.value = result.map { posts -> mapToUiModel(posts) }
         }

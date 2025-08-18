@@ -9,6 +9,6 @@ interface PostApi {
     suspend fun getPosts() : List<PostResponse>
 
     @GET("posts")
-    suspend fun searchPosts(@Query("title") title: String): List<PostResponse>
+    suspend fun searchPosts(@Query("title_like") title: String): List<PostResponse>
 
 }

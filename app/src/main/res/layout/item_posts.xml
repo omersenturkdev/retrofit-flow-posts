@@ -9,6 +9,7 @@
         android:id="@+id/imageViewPosts"
         android:layout_width="72dp"
         android:layout_height="72dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewPostTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +30,7 @@
     <TextView
         android:id="@+id/textViewPostBody"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

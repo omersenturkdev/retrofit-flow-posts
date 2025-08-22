@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
 import com.omersenturk.apiflowposts.ui.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = PostAdapter(emptyList())
+        adapter = PostAdapter(emptyList()) { post ->
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                post.title,
+                post.body,
+                post.image
+            )
+            findNavController().navigate(action)
+        }
         binding.recycleViewPosts.adapter = adapter
     }
 

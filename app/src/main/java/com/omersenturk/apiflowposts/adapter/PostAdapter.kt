@@ -10,8 +10,10 @@ import com.omersenturk.apiflowposts.R
 import com.omersenturk.apiflowposts.data.models.PostUiModel
 import com.omersenturk.apiflowposts.databinding.ItemPostsBinding
 
-class PostAdapter(private var posts: List<PostUiModel>) :
-    RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(
+    private var posts: List<PostUiModel>,
+    private val onItemClick:(PostUiModel) -> Unit
+) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     inner class PostViewHolder(private val binding : ItemPostsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(post : PostUiModel){
@@ -19,6 +21,9 @@ class PostAdapter(private var posts: List<PostUiModel>) :
             binding.textViewPostBody.text = post.body
             binding.imageViewPosts.load(post.image){
                 transformations(CircleCropTransformation())
+            }
+            binding.root.setOnClickListener {
+                onItemClick(post)
             }
         }
     }

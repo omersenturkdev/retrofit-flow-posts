@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/grey"
     tools:context=".ui.details.DetailsFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-
-        android:id="@+id/appCompatTextView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@color/grey"
         android:layout_height="wrap_content"
-        android:text="@string/post_details"
-        tools:text="POST"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/post_details"
+        app:titleCentered="true"
+        app:titleTextColor="@color/black" />
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -31,7 +30,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewDetailTitle"
@@ -44,51 +43,103 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewDetailImage"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         tools:text="Test UI Tittle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewDetailBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:lineSpacingExtra="4dp"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         tools:text="@string/hello_blank_fragment"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
+        app:singleLine="false"
+        app:singleSelection="false">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFirstTag"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/light_gray"
+            android:textColor="@color/black"
+            android:checkable="false"
+            android:clickable="false"
+            tools:text="Tag1test" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSecondTag"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/light_gray"
+            android:textColor="@color/black"
+            android:checkable="false"
+            android:clickable="false"
+            tools:text="Tag2Test" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipThirdTag"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/light_gray"
+            android:textColor="@color/black"
+            android:checkable="false"
+            android:clickable="false"
+            tools:text="Tag3test" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <LinearLayout
         android:id="@+id/detailActions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewLike"
-            android:drawableLeft="@drawable/ic_like"
-            android:textColor="@color/black"
-            android:drawablePadding="4dp"
-            tools:text="1.2K"
-            android:paddingEnd="16dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:drawableLeft="@drawable/ic_like"
+            android:drawablePadding="4dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            tools:text="1.2K" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewComment"
-            android:drawableLeft="@drawable/ic_comment"
-            android:textColor="@color/black"
-            android:drawablePadding="4dp"
-            tools:text="1.2K"
-            android:paddingEnd="16dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"/>
+            android:drawableLeft="@drawable/ic_comment"
+            android:drawablePadding="4dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/black"
+            tools:text="1.2K" />
+
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
@@ -39,6 +40,12 @@ class DetailsFragment : Fragment() {
             //icon values
             textViewComment.text = args.title.length.toString()
             textViewLike.text = args.body.length.toString()
+
+            setRandomChipsFromBody(args.body)
+
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 
@@ -55,5 +62,16 @@ class DetailsFragment : Fragment() {
             text
         }
     }
+
+    private fun setRandomChipsFromBody(body: String) {
+        val words = body.split(" ").filter { it.isNotBlank() }.take(3)
+
+        if (words.size >= 3) {
+            binding.chipFirstTag.text = "#${words[0]}"
+            binding.chipSecondTag.text = "#${words[1]}"
+            binding.chipThirdTag.text = "#${words[2]}"
+        }
+    }
+
 
 }

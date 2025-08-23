@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
 import com.omersenturk.apiflowposts.ui.HomeViewModel
+import com.omersenturk.apiflowposts.ui.PostState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -52,11 +53,17 @@ class HomeFragment : Fragment() {
 
     private fun observePosts() {
         lifecycleScope.launch {
-            viewModel.posts.collectLatest { result ->
-                result?.onSuccess { posts ->
-                    adapter.updatePosts(posts)
-                }?.onFailure { error ->
-                    Log.e("observePosts",error.toString())
+            viewModel.posts.collectLatest { state ->
+                when (state) {
+                    is PostState.Loading -> {
+                        Toast.makeText(requireContext(),"Loading Post", Toast.LENGTH_LONG).show()
+                    }
+                    is PostState.Success -> {
+                        adapter.updatePosts(state.posts)
+                    }
+                    is PostState.Error -> {
+                        Log.e("observePosts", state.message)
+                    }
                 }
             }
         }

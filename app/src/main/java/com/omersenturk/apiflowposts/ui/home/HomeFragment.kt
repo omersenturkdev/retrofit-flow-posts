@@ -2,15 +2,18 @@ package com.omersenturk.apiflowposts.ui.home
 
 import PostAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
 import com.omersenturk.apiflowposts.ui.HomeViewModel
+import com.omersenturk.apiflowposts.ui.PostState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,6 +41,7 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         observePosts()
         setupAddButton()
+        searchPostList()
 
         viewModel.fetchPosts()
     }
@@ -49,18 +53,36 @@ class HomeFragment : Fragment() {
 
     private fun observePosts() {
         lifecycleScope.launch {
-            viewModel.posts.collectLatest { result ->
-                result?.onSuccess { posts ->
-                    adapter.updatePosts(posts)
-                }?.onFailure { error ->
-                    Toast.makeText(requireContext(), "Hata: ${error.message}", Toast.LENGTH_SHORT).show()
+            viewModel.posts.collectLatest { state ->
+                when (state) {
+                    is PostState.Loading -> {
+                        Toast.makeText(requireContext(),"Loading Post", Toast.LENGTH_LONG).show()
+                    }
+                    is PostState.Success -> {
+                        adapter.updatePosts(state.posts)
+                    }
+                    is PostState.Error -> {
+                        Log.e("observePosts", state.message)
+                    }
                 }
             }
         }
     }
+
     private fun setupAddButton() {
         binding.buttonAdd.setOnClickListener {
             Toast.makeText(requireContext(), "Add button clicked!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun searchPostList() {
+        binding.searchEditText.addTextChangedListener { editable ->
+            val query = editable.toString()
+            if (query.isNotEmpty()) {
+                viewModel.searchPosts(query)
+            } else {
+                viewModel.fetchPosts()
+            }
         }
     }
 

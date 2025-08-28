@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.repeatOnLifecycle
 import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
 import com.omersenturk.apiflowposts.ui.HomeViewModel
 import com.omersenturk.apiflowposts.ui.PostState
@@ -60,17 +62,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePosts() {
-        lifecycleScope.launch {
-            viewModel.posts.collectLatest { state ->
-                when (state) {
-                    is PostState.Loading -> {
-                        Toast.makeText(requireContext(),"Loading Post", Toast.LENGTH_LONG).show()
-                    }
-                    is PostState.Success -> {
-                        adapter.updatePosts(state.posts)
-                    }
-                    is PostState.Error -> {
-                        Log.e("observePosts", state.message)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.posts.collectLatest { state ->
+                    when (state) {
+                        is PostState.Loading -> {
+                            Toast.makeText(requireContext(), "Loading Post", Toast.LENGTH_SHORT).show()
+                        }
+                        is PostState.Success -> {
+                            adapter.updatePosts(state.posts)
+                        }
+                        is PostState.Error -> {
+                            Log.e("observePosts", state.message)
+                        }
                     }
                 }
             }

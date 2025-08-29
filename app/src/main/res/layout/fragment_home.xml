@@ -13,7 +13,7 @@
         android:id="@+id/searchLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/Search"
+        android:hint="@string/search_home"
         app:endIconMode="clear_text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +27,7 @@
             android:inputType="text"
             android:textColor="@android:color/black" />
 
-    </com.google.android.material.textfield.TextInputLayout>>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,7 +45,7 @@
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_item"
+        android:text="@string/add_item_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -6,4 +6,11 @@
     <!-- Home -->
     <string name="add_item">Add</string>
     <string name="Search">Search</string>
+
+    <!--Sheet Button- Home -->
+    <string name="sheet_bottom_home">New Post</string>
+    <string name="sheet_bottom_home_title">Title</string>
+    <string name="sheet_bottom_home_body">Description</string>
+    <string name="sheet_bottom_home_save">Save</string>
+    <string name="choose_photo">Choose Photo</string>
 </resources>

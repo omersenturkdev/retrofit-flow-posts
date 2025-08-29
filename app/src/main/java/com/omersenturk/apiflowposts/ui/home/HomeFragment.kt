@@ -67,12 +67,17 @@ class HomeFragment : Fragment() {
                 viewModel.posts.collectLatest { state ->
                     when (state) {
                         is PostState.Loading -> {
-                            Toast.makeText(requireContext(), "Loading Post", Toast.LENGTH_SHORT).show()
+                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.recycleViewPosts.visibility = View.GONE
                         }
                         is PostState.Success -> {
+                            binding.progressBarHome.visibility = View.GONE
+                            binding.recycleViewPosts.visibility = View.VISIBLE
                             adapter.updatePosts(state.posts)
                         }
                         is PostState.Error -> {
+                            binding.progressBarHome.visibility = View.GONE
+                            binding.recycleViewPosts.visibility = View.GONE
                             Log.e("observePosts", state.message)
                         }
                     }

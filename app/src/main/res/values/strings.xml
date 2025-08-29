@@ -9,4 +9,12 @@
 
     <!-- Details -->
     <string name="post_details">POST</string>
+
+    <!--Sheet Button- Home -->
+    <string name="sheet_bottom_home">New Post</string>
+    <string name="sheet_bottom_home_title">Title</string>
+    <string name="sheet_bottom_home_body">Description</string>
+    <string name="sheet_bottom_home_save">Save</string>
+    <string name="choose_photo">Choose Photo</string>
+
 </resources>

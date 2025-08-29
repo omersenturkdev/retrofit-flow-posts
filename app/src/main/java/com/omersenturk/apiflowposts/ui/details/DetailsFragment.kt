@@ -1,15 +1,21 @@
 package com.omersenturk.apiflowposts.ui.details
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.google.android.material.chip.Chip
+import com.omersenturk.apiflowposts.R
 import com.omersenturk.apiflowposts.databinding.FragmentDetailsBinding
+import com.omersenturk.apiflowposts.extension.capitalizeFirst
 
 
 class DetailsFragment : Fragment() {
@@ -32,14 +38,14 @@ class DetailsFragment : Fragment() {
         binding.apply {
             //Post title-body-image
             textViewDetailTitle.text = args.title.capitalizeFirst()
-            textViewDetailBody.text = args.body
+            textViewDetailBody.text = args.body.capitalizeFirst()
             imageViewDetailImage.load(args.image) {
                 transformations(CircleCropTransformation())
             }
 
             //icon values
-            textViewComment.text = args.title.length.toString()
-            textViewLike.text = args.body.length.toString()
+            textViewPostComment.text = args.title.length.toString()
+            textViewPostLike.text = args.body.length.toString()
 
             setRandomChipsFromBody(args.body)
 
@@ -54,22 +60,23 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    fun String.capitalizeFirst(): String {
-        val text = this.trim()
-        return if (text.isNotEmpty()) {
-            text.replaceFirstChar { it.uppercase() }
-        } else {
-            text
-        }
-    }
+
 
     private fun setRandomChipsFromBody(body: String) {
-        val words = body.split(" ").filter { it.isNotBlank() }.take(3)
-
-        if (words.size >= 3) {
-            binding.chipFirstTag.text = "#${words[0]}"
-            binding.chipSecondTag.text = "#${words[1]}"
-            binding.chipThirdTag.text = "#${words[2]}"
+        val words = body.replace("\n", " ").split(" ").filter { it.isNotBlank() }
+        binding.chipGroupPostDetail.removeAllViews()
+        words.forEach {
+            val chip = Chip(
+                ContextThemeWrapper(requireContext(), R.style.CustomChipStyle),
+                null,
+                0
+            ).apply {
+                text = "#${it.capitalizeFirst()}"
+            }
+            chip.chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), R.color.light_gray)
+                    )
+            binding.chipGroupPostDetail.addView(chip)
         }
     }
 

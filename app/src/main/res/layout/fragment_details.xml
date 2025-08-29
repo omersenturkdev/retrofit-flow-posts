@@ -1,146 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/grey"
     tools:context=".ui.details.DetailsFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/grey"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/post_details"
-        app:titleCentered="true"
-        app:titleTextColor="@color/black" />
+        android:layout_height="wrap_content">
 
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewDetailImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewDetailTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewDetailImage"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        tools:text="Test UI Tittle" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewDetailBody"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:lineSpacingExtra="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        tools:text="@string/hello_blank_fragment"/>
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
-        app:singleLine="false"
-        app:singleSelection="false">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipFirstTag"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/grey"
             android:layout_height="wrap_content"
-            app:chipBackgroundColor="@color/light_gray"
-            android:textColor="@color/black"
-            android:checkable="false"
-            android:clickable="false"
-            tools:text="Tag1test" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/post_details"
+            app:titleCentered="true"
+            app:titleTextColor="@color/black" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipSecondTag"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipBackgroundColor="@color/light_gray"
-            android:textColor="@color/black"
-            android:checkable="false"
-            android:clickable="false"
-            tools:text="Tag2Test" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipThirdTag"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipBackgroundColor="@color/light_gray"
-            android:textColor="@color/black"
-            android:checkable="false"
-            android:clickable="false"
-            tools:text="Tag3test" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <LinearLayout
-        android:id="@+id/detailActions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewDetailImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintDimensionRatio="2:1"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewLike"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewDetailTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_like"
-            android:drawablePadding="4dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewDetailImage"
+            android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/black"
-            tools:text="1.2K" />
+            tools:text="Test UI Tittle" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewComment"
+            android:id="@+id/textViewDetailBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            tools:text="@string/hello_blank_fragment"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupPostDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_comment"
-            android:drawablePadding="4dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/black"
-            tools:text="1.2K" />
+            android:layout_marginTop="8dp"
+            android:paddingStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
+            app:singleLine="false"
+            app:singleSelection="false"
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="4dp">
+        </com.google.android.material.chip.ChipGroup>
 
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutPostDetailActions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPostLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_like"
+                android:drawablePadding="4dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                tools:text="1.2K" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPostComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_comment"
+                android:drawablePadding="4dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/black"
+                tools:text="1.2K" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -6,6 +6,7 @@ import com.omersenturk.apiflowposts.data.PostRepository
 import com.omersenturk.apiflowposts.data.models.PostResponse
 import com.omersenturk.apiflowposts.data.models.PostUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,20 +17,41 @@ class HomeViewModel @Inject constructor(
     private val repository: PostRepository
 ) : ViewModel() {
 
-    private val _posts = MutableStateFlow<Result<List<PostUiModel>>?>(null)
-    val posts: StateFlow<Result<List<PostUiModel>>?> = _posts
+    private val _posts = MutableStateFlow<PostState>(PostState.Loading)
+    val posts: StateFlow<PostState> = _posts
+
+    private var job: Job? = null
 
     fun fetchPosts() {
         viewModelScope.launch {
-            val result = repository.getPost()
-            _posts.value = result.map { posts -> mapToUiModel(posts) }
+            _posts.value = PostState.Loading
+            try {
+                val result = repository.getPost()
+                result.onSuccess { posts ->
+                    _posts.value = PostState.Success(mapToUiModel(posts))
+                }.onFailure { e ->
+                    _posts.value = PostState.Error(e.message ?: "Error")
+                }
+            } catch (e: Exception) {
+                _posts.value = PostState.Error(e.message ?: "Error")
+            }
         }
     }
 
     fun searchPosts(query: String) {
-        viewModelScope.launch {
-            val result = repository.searchPosts(query)
-            _posts.value = result.map { posts -> mapToUiModel(posts) }
+        job?.cancel()
+        job = viewModelScope.launch {
+            _posts.value = PostState.Loading
+            try {
+                val result = repository.searchPosts(query)
+                result.onSuccess { posts ->
+                    _posts.value = PostState.Success(mapToUiModel(posts))
+                }.onFailure { e ->
+                    _posts.value = PostState.Error(e.message ?: "Unknown error")
+                }
+            } catch (e: Exception) {
+                _posts.value = PostState.Error(e.message ?: "Unknown error")
+            }
         }
     }
 

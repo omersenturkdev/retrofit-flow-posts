@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,7 +17,7 @@ class AddPostBottomSheet : BottomSheetDialogFragment() {
     private var _binding: FragmentAddPostBottomSheetBinding? = null
     private val binding get() = _binding!!
 
-    private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    private val pickImage = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri?.let {
             binding.imageViewSheetButtonImage.load(it) {
                 crossfade(true)
@@ -41,7 +42,7 @@ class AddPostBottomSheet : BottomSheetDialogFragment() {
         binding.buttonClose.setOnClickListener { dismiss() }
 
         binding.buttonChoosePhoto.setOnClickListener {
-            pickImage.launch("image/*")
+            pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         binding.buttonSave.setOnClickListener {

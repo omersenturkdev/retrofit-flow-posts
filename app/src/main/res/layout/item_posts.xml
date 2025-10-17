@@ -2,40 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-   >
+    android:layout_height="100dp">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewPosts"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/image_item_post_72dp"
+        android:layout_height="@dimen/image_item_post_72dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewPostTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewPostTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
-        android:textSize="13sp"
-        android:textColor="#000000"
+        android:layout_marginTop="@dimen/normal_size"
+        android:layout_marginStart="@dimen/small_size"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewPosts"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewPostBody"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="@dimen/small_size"
+        android:layout_marginStart="@dimen/small_size"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="#000000"
-        android:textSize="11sp"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/item_description_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewPosts"
         app:layout_constraintTop_toBottomOf="@+id/textViewPostTitle" />

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Text Size Home-->
+    <dimen name="title_text_size">13sp</dimen>
+    <dimen name="item_description_text_size">11sp</dimen>
+
+    <!--Text Size Detail-->
+    <dimen name="detail_text_title">20sp</dimen>
+    <dimen name="detail_text_description">16sp</dimen>
+
+    <!--Size-->
+    <dimen name="image_item_post_72dp">72dp</dimen>
+    <dimen name="small_size">8dp</dimen>
+    <dimen name="normal_size">16dp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+</resources>

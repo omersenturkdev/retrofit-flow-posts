@@ -2,15 +2,20 @@ package com.omersenturk.apiflowposts.ui.home
 
 import PostAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.repeatOnLifecycle
 import com.omersenturk.apiflowposts.databinding.FragmentHomeBinding
 import com.omersenturk.apiflowposts.ui.HomeViewModel
+import com.omersenturk.apiflowposts.ui.PostState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,29 +43,63 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         observePosts()
         setupAddButton()
+        searchPostList()
 
         viewModel.fetchPosts()
     }
 
     private fun setupRecyclerView() {
-        adapter = PostAdapter(emptyList())
+        adapter = PostAdapter(emptyList()) { post ->
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                post.title,
+                post.body,
+                post.image
+            )
+            findNavController().navigate(action)
+        }
         binding.recycleViewPosts.adapter = adapter
     }
 
     private fun observePosts() {
-        lifecycleScope.launch {
-            viewModel.posts.collectLatest { result ->
-                result?.onSuccess { posts ->
-                    adapter.updatePosts(posts)
-                }?.onFailure { error ->
-                    Toast.makeText(requireContext(), "Hata: ${error.message}", Toast.LENGTH_SHORT).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.posts.collectLatest { state ->
+                    when (state) {
+                        is PostState.Loading -> {
+                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.recycleViewPosts.visibility = View.GONE
+                        }
+                        is PostState.Success -> {
+                            binding.progressBarHome.visibility = View.GONE
+                            binding.recycleViewPosts.visibility = View.VISIBLE
+                            adapter.updatePosts(state.posts)
+                        }
+                        is PostState.Error -> {
+                            binding.progressBarHome.visibility = View.GONE
+                            binding.recycleViewPosts.visibility = View.GONE
+                            Log.e("observePosts", state.message)
+                        }
+                    }
                 }
             }
         }
     }
+
     private fun setupAddButton() {
         binding.buttonAdd.setOnClickListener {
-            Toast.makeText(requireContext(), "Add button clicked!", Toast.LENGTH_SHORT).show()
+            AddPostBottomSheet.newInstance()
+                .show(childFragmentManager, "add")
+        }
+    }
+
+    private fun searchPostList() {
+        binding.searchEditText.addTextChangedListener { editable ->
+            val query = editable.toString()
+            if (query.isNotEmpty()) {
+                viewModel.searchPosts(query)
+            } else {
+                viewModel.fetchPosts()
+            }
         }
     }
 

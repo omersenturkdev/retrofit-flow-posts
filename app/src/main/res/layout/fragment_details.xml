@@ -1,14 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/grey"
     tools:context=".ui.details.DetailsFragment">
 
-
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:background="@color/grey"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/post_details"
+            app:titleCentered="true"
+            app:titleTextColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewDetailImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/normal_size"
+            app:layout_constraintDimensionRatio="2:1"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDetailTitle"
+            style="@style/Detail_Views_Style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/detail_text_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewDetailImage"
+            tools:text="Test UI Tittle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDetailBody"
+            style="@style/Detail_Views_Style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/_4dp"
+            android:textSize="@dimen/detail_text_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
+            tools:text="@string/hello_blank_fragment"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupPostDetail"
+            style="@style/Detail_Views_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
+            app:singleLine="false"
+            app:singleSelection="false"
+            app:chipSpacingHorizontal="@dimen/normal_size"
+            app:chipSpacingVertical="@dimen/_4dp">
+        </com.google.android.material.chip.ChipGroup>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostLike"
+            style="@style/Action_Style"
+            android:drawableStart="@drawable/ic_like"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostComment"
+            style="@style/Action_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_comment"
+            app:layout_constraintStart_toEndOf="@+id/textViewPostLike"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostBookmark"
+            style="@style/Action_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_bookmark"
+            app:layout_constraintStart_toEndOf="@+id/textViewPostComment"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

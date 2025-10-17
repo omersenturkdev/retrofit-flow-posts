@@ -4,6 +4,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Home -->
-    <string name="add_item">Add</string>
-    <string name="Search">Search</string>
+    <string name="add_item_home">Add</string>
+    <string name="search_home">Search</string>
+
+    <!-- Details -->
+    <string name="post_details">POST</string>
+
+    <!--Sheet Button- Home -->
+    <string name="sheet_bottom_home">Create New Post</string>
+    <string name="sheet_bottom_home_title">Title</string>
+    <string name="sheet_bottom_home_body">Description</string>
+    <string name="sheet_bottom_home_save">Save</string>
+    <string name="choose_photo">Choose Photo</string>
+
 </resources>

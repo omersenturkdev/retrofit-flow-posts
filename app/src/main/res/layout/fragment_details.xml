@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
@@ -30,7 +30,7 @@
             android:id="@+id/imageViewDetailImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/normal_size"
             app:layout_constraintDimensionRatio="2:1"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
@@ -40,81 +40,70 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDetailTitle"
+            style="@style/Detail_Views_Style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/detail_text_title"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewDetailImage"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             tools:text="Test UI Tittle" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDetailBody"
+            style="@style/Detail_Views_Style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:lineSpacingExtra="4dp"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:lineSpacingExtra="@dimen/_4dp"
+            android:textSize="@dimen/detail_text_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewDetailTitle"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             tools:text="@string/hello_blank_fragment"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupPostDetail"
+            style="@style/Detail_Views_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDetailBody"
             app:singleLine="false"
             app:singleSelection="false"
-            app:chipSpacingHorizontal="8dp"
-            app:chipSpacingVertical="4dp">
+            app:chipSpacingHorizontal="@dimen/normal_size"
+            app:chipSpacingVertical="@dimen/_4dp">
         </com.google.android.material.chip.ChipGroup>
 
 
-        <LinearLayout
-            android:id="@+id/linearLayoutPostDetailActions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostLike"
+            style="@style/Action_Style"
+            android:drawableStart="@drawable/ic_like"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail">
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewPostLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_like"
-                android:drawablePadding="4dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                tools:text="1.2K" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostComment"
+            style="@style/Action_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_comment"
+            app:layout_constraintStart_toEndOf="@+id/textViewPostLike"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewPostComment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_comment"
-                android:drawablePadding="4dp"
-                android:paddingEnd="16dp"
-                android:textColor="@color/black"
-                tools:text="1.2K" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewPostBookmark"
+            style="@style/Action_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_bookmark"
+            app:layout_constraintStart_toEndOf="@+id/textViewPostComment"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupPostDetail"
+            tools:text="1.2K" />
 
-        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

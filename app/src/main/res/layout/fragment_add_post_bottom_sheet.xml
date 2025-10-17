@@ -35,6 +35,7 @@
         android:id="@+id/editTextSheetButtonPostTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:hint="@string/sheet_bottom_home_title" />
 
     <androidx.appcompat.widget.AppCompatEditText

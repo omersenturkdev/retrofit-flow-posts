@@ -44,8 +44,7 @@ class DetailsFragment : Fragment() {
             }
 
             //icon values
-            textViewPostComment.text = args.title.length.toString()
-            textViewPostLike.text = args.body.length.toString()
+            getItemValues()
 
             setRandomChipsFromBody(args.body)
 
@@ -61,7 +60,6 @@ class DetailsFragment : Fragment() {
     }
 
 
-
     private fun setRandomChipsFromBody(body: String) {
         val words = body.replace("\n", " ").split(" ").filter { it.isNotBlank() }
         binding.chipGroupPostDetail.removeAllViews()
@@ -74,10 +72,17 @@ class DetailsFragment : Fragment() {
                 text = "#${it.capitalizeFirst()}"
             }
             chip.chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), R.color.light_gray)
-                    )
+                ContextCompat.getColor(requireContext(), R.color.light_gray)
+            )
             binding.chipGroupPostDetail.addView(chip)
         }
+    }
+
+    //Calculate Item Values
+    private fun getItemValues(){
+        binding.textViewPostLike.text = args.body.length.toString()
+        binding.textViewPostComment.text = args.title.length.toString()
+        binding.textViewPostBookmark.text = (args.title.length / 2).toString()
     }
 
 

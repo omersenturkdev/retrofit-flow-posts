@@ -15,7 +15,6 @@ Android Flow Post is a data listing and filtering application developed using th
 
 ## 🛠 Technologies & Libraries
 
-The application leverages modern Android development tools with a strong focus on **performance, scalability, and maintainability**:
 
 - **Architecture:** MVVM (Model–View–ViewModel)
 - **Dependency Injection:** Dagger Hilt

@@ -21,14 +21,22 @@ class HomeViewModel @Inject constructor(
     val posts: StateFlow<PostState> = _posts
 
     private var job: Job? = null
+    private val allPostsList = mutableListOf<PostUiModel>()
 
     fun fetchPosts() {
+        if (allPostsList.isNotEmpty()) {
+            _posts.value = PostState.Success(allPostsList.toList())
+            return
+        }
         viewModelScope.launch {
             _posts.value = PostState.Loading
             try {
                 val result = repository.getPost()
                 result.onSuccess { posts ->
-                    _posts.value = PostState.Success(mapToUiModel(posts))
+                    val uiModels = mapToUiModel(posts)
+                    allPostsList.clear()
+                    allPostsList.addAll(uiModels)
+                    _posts.value = PostState.Success(allPostsList.toList())
                 }.onFailure { e ->
                     _posts.value = PostState.Error(e.message ?: "Error")
                 }
@@ -45,7 +53,10 @@ class HomeViewModel @Inject constructor(
             try {
                 val result = repository.searchPosts(query)
                 result.onSuccess { posts ->
-                    _posts.value = PostState.Success(mapToUiModel(posts))
+                    val uiModels = mapToUiModel(posts)
+                    allPostsList.clear()
+                    allPostsList.addAll(uiModels)
+                    _posts.value = PostState.Success(allPostsList.toList())
                 }.onFailure { e ->
                     _posts.value = PostState.Error(e.message ?: "Unknown error")
                 }
@@ -53,6 +64,12 @@ class HomeViewModel @Inject constructor(
                 _posts.value = PostState.Error(e.message ?: "Unknown error")
             }
         }
+    }
+
+    fun addPost(title: String, body: String, image: String) {
+        val newPost = PostUiModel(title, body, image)
+        allPostsList.add(0, newPost)
+        _posts.value = PostState.Success(allPostsList.toList())
     }
 
     private fun mapToUiModel(posts: List<PostResponse>): List<PostUiModel> {

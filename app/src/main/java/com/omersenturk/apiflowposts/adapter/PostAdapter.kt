@@ -1,12 +1,8 @@
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.omersenturk.apiflowposts.R
 import com.omersenturk.apiflowposts.data.models.PostUiModel
 import com.omersenturk.apiflowposts.databinding.ItemPostsBinding
 
